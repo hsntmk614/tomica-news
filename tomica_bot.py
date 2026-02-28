@@ -4,8 +4,9 @@ import json
 import os
 
 # --- 設定部分 ---
-# LINE Notifyのトークンを環境変数から取得します
-LINE_NOTIFY_TOKEN = os.environ.get("LINE_TOKEN", "")
+# GitHubの金庫からLINEの鍵を自動で引き出します
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
+LINE_USER_ID = os.environ.get("LINE_USER_ID", "")
 
 # 監視したいサイトのURLリスト（例：タカラトミーモール）
 TARGET_URLS = [
@@ -15,16 +16,30 @@ TARGET_URLS = [
 # 過去に通知した情報を記録するファイル
 HISTORY_FILE = "tomica_history.json"
 
-def send_line_notify(message):
-    """LINEに通知を送る関数"""
-    if not LINE_NOTIFY_TOKEN:
-        print("LINEトークンが設定されていません。")
+def send_line_message(message_text):
+    """LINEに通知を送る関数 (新しいMessaging API版)"""
+    if not LINE_CHANNEL_ACCESS_TOKEN or not LINE_USER_ID:
+        print("LINEの鍵が設定されていません。")
         return
         
-    line_notify_api = 'https://notify-api.line.me/api/notify'
-    headers = {'Authorization': f'Bearer {LINE_NOTIFY_TOKEN}'}
-    data = {'message': f'\n{message}'}
-    requests.post(line_notify_api, headers=headers, data=data)
+    endpoint = "https://api.line.me/v2/bot/message/push"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {LINE_CHANNEL_ACCESS_TOKEN}"
+    }
+    payload = {
+        "to": LINE_USER_ID,
+        "messages": [
+            {
+                "type": "text",
+                "text": message_text
+            }
+        ]
+    }
+    
+    response = requests.post(endpoint, headers=headers, json=payload)
+    if response.status_code != 200:
+        print(f"LINE通知エラー: {response.text}")
 
 def load_history():
     """過去の通知履歴を読み込む"""
@@ -46,22 +61,17 @@ def check_new_tomica():
 
     for url in TARGET_URLS:
         try:
-            # サイトへの負荷を下げるための設定
             headers = {'User-Agent': 'Mozilla/5.0'} 
             response = requests.get(url, headers=headers)
             response.raise_for_status()
             
-            # HTMLを解析
             soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # リンク(aタグ)から「トミカ」という文字を含むものを探す
             links = soup.find_all('a')
             
             for link in links:
                 title = link.text.strip()
                 href = link.get('href')
                 
-                # タイトルに「トミカ」が含まれていて、まだ通知していない場合
                 if "トミカ" in title and href:
                     if href.startswith('/'):
                         domain = "/".join(url.split("/")[:3])
@@ -72,10 +82,9 @@ def check_new_tomica():
                     item_id = full_url 
                     
                     if item_id not in history:
-                        # 新しいトミカ情報発見！
                         message = f"🚗 新着トミカ情報！\n{title}\n{full_url}"
                         print(message)
-                        send_line_notify(message)
+                        send_line_message(message)
                         
                         history.append(item_id)
                         new_items_found = True
@@ -83,7 +92,6 @@ def check_new_tomica():
         except Exception as e:
             print(f"エラーが発生しました ({url}): {e}")
 
-    # 履歴を更新（最新の200件だけ保持）
     if new_items_found:
         save_history(history[-200:])
         print("チェック完了。新着情報を通知しました。")
