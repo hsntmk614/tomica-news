@@ -4,20 +4,16 @@ import json
 import os
 
 # --- 設定部分 ---
-# GitHubの金庫からLINEの鍵を自動で引き出します
 LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
 LINE_USER_ID = os.environ.get("LINE_USER_ID", "")
 
-# 監視したいサイトのURLリスト（例：タカラトミーモール）
 TARGET_URLS = [
     "https://takaratomymall.jp/shop/c/cTomica/",
 ]
 
-# 過去に通知した情報を記録するファイル
 HISTORY_FILE = "tomica_history.json"
 
 def send_line_message(message_text):
-    """LINEに通知を送る関数 (新しいMessaging API版)"""
     if not LINE_CHANNEL_ACCESS_TOKEN or not LINE_USER_ID:
         print("LINEの鍵が設定されていません。")
         return
@@ -29,40 +25,37 @@ def send_line_message(message_text):
     }
     payload = {
         "to": LINE_USER_ID,
-        "messages": [
-            {
-                "type": "text",
-                "text": message_text
-            }
-        ]
+        "messages": [{"type": "text", "text": message_text}]
     }
     
-    response = requests.post(endpoint, headers=headers, json=payload)
+    # LINEに送る時も10秒でタイムアウトするように設定
+    response = requests.post(endpoint, headers=headers, json=payload, timeout=10)
     if response.status_code != 200:
         print(f"LINE通知エラー: {response.text}")
 
 def load_history():
-    """過去の通知履歴を読み込む"""
     if os.path.exists(HISTORY_FILE):
         with open(HISTORY_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
 def save_history(history):
-    """通知履歴を保存する"""
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
         json.dump(history, f, ensure_ascii=False, indent=4)
 
 def check_new_tomica():
-    """サイトをチェックして新着があれば通知するメイン処理"""
     print("トミカの最新情報をチェック中...")
     history = load_history()
     new_items_found = False
 
     for url in TARGET_URLS:
         try:
-            headers = {'User-Agent': 'Mozilla/5.0'} 
-            response = requests.get(url, headers=headers)
+            # 「私は普通のパソコンのブラウザ(Chrome)ですよ」と装う設定
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            } 
+            # ★ここで「10秒待ってダメなら諦める（timeout=10）」を追加！
+            response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             
             soup = BeautifulSoup(response.text, 'html.parser')
@@ -89,6 +82,8 @@ def check_new_tomica():
                         history.append(item_id)
                         new_items_found = True
                         
+        except requests.exceptions.Timeout:
+            print(f"通信エラー ({url}): サイトからの応答が遅いためスキップしました。")
         except Exception as e:
             print(f"エラーが発生しました ({url}): {e}")
 
