@@ -2,14 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+import xml.etree.ElementTree as ET
 
 # --- 設定部分 ---
 LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", "")
 LINE_USER_ID = os.environ.get("LINE_USER_ID", "")
-
-TARGET_URLS = [
-    "https://takaratomymall.jp/shop/c/cTomica/",
-]
 
 HISTORY_FILE = "tomica_history.json"
 
@@ -28,9 +25,12 @@ def send_line_message(message_text):
         "messages": [{"type": "text", "text": message_text}]
     }
     
-    response = requests.post(endpoint, headers=headers, json=payload, timeout=10)
-    if response.status_code != 200:
-        print(f"LINE通知エラー: {response.text}")
+    try:
+        response = requests.post(endpoint, headers=headers, json=payload, timeout=10)
+        if response.status_code != 200:
+            print(f"LINE通知エラー: {response.text}")
+    except Exception as e:
+        print(f"LINE送信エラー: {e}")
 
 def load_history():
     if os.path.exists(HISTORY_FILE):
@@ -38,7 +38,6 @@ def load_history():
             with open(HISTORY_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
         except json.JSONDecodeError:
-            # ★ファイルが空っぽの場合はエラーにせず、空っぽとして進める
             return []
     return []
 
@@ -51,51 +50,73 @@ def check_new_tomica():
     history = load_history()
     new_items_found = False
 
-    for url in TARGET_URLS:
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    } 
+
+    # --- ① タカラトミー公式 ＆ トミカごーごー のチェック ---
+    HTML_TARGETS = [
+        "https://takaratomymall.jp/shop/c/cTomica/",
+        "https://tomicagogo.com/"  # ←ご指定の最強サイトを追加しました！
+    ]
+
+    for url in HTML_TARGETS:
         try:
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-            } 
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
-            
             soup = BeautifulSoup(response.text, 'html.parser')
-            links = soup.find_all('a')
             
-            for link in links:
+            for link in soup.find_all('a'):
                 title = link.text.strip()
                 href = link.get('href')
                 
-                if "トミカ" in title and href:
+                # 「トミカ」という文字が含まれるリンクを拾う
+                if title and href and "トミカ" in title:
                     if href.startswith('/'):
                         domain = "/".join(url.split("/")[:3])
                         full_url = domain + href
                     else:
                         full_url = href
 
-                    item_id = full_url 
-                    
-                    if item_id not in history:
+                    if full_url not in history and full_url.startswith("http"):
                         message = f"🚗 新着トミカ情報！\n{title}\n{full_url}"
                         print(message)
                         send_line_message(message)
-                        
-                        history.append(item_id)
+                        history.append(full_url)
                         new_items_found = True
-                        
         except requests.exceptions.Timeout:
-            print(f"通信エラー ({url}): サイトからの応答が遅いためスキップしました。")
+            print(f"通信エラー ({url}): 応答が遅いためスキップしました。")
         except Exception as e:
-            print(f"エラーが発生しました ({url}): {e}")
+            print(f"サイトチェックエラー ({url}): {e}")
 
+    # --- ② Googleニュース のチェック ---
+    # 「トミカ 特注」「オリジナルトミカ」「トミカ 予約」で検索した最新ニュースを拾います
+    GOOGLE_NEWS_URL = "https://news.google.com/rss/search?q=トミカ+特注+OR+オリジナルトミカ+OR+トミカ+予約&hl=ja&gl=JP&ceid=JP:ja"
+    try:
+        response = requests.get(GOOGLE_NEWS_URL, headers=headers, timeout=10)
+        response.raise_for_status()
+        
+        # ニュース用の特別なデータ(XML)を解読する処理
+        root = ET.fromstring(response.text)
+        for item in root.findall('.//item'):
+            title = item.find('title').text
+            link = item.find('link').text
+            
+            if link not in history:
+                message = f"📰 ニュース発見！\n{title}\n{link}"
+                print(message)
+                send_line_message(message)
+                history.append(link)
+                new_items_found = True
+    except Exception as e:
+        print(f"Googleニュースチェックエラー: {e}")
+
+    # --- 保存処理 ---
     if new_items_found:
-        save_history(history[-200:])
+        save_history(history[-400:]) # 履歴が増えすぎないよう最新400件だけ覚える
         print("チェック完了。新着情報を通知しました。")
     else:
         print("チェック完了。新着情報はありませんでした。")
 
 if __name__ == "__main__":
-    # ★★★ テスト用のメッセージを強制的に送る設定 ★★★
-    send_line_message("🚗 【テスト】LINEとの連携が大成功しました！このメッセージが届いていれば設定は完璧です！")
-    
     check_new_tomica()
