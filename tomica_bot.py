@@ -34,8 +34,12 @@ def send_line_message(message_text):
 
 def load_history():
     if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            # ★ファイルが空っぽの場合はエラーにせず、空っぽとして進める
+            return []
     return []
 
 def save_history(history):
