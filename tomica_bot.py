@@ -28,7 +28,6 @@ def send_line_message(message_text):
         "messages": [{"type": "text", "text": message_text}]
     }
     
-    # LINEに送る時も10秒でタイムアウトするように設定
     response = requests.post(endpoint, headers=headers, json=payload, timeout=10)
     if response.status_code != 200:
         print(f"LINE通知エラー: {response.text}")
@@ -50,11 +49,9 @@ def check_new_tomica():
 
     for url in TARGET_URLS:
         try:
-            # 「私は普通のパソコンのブラウザ(Chrome)ですよ」と装う設定
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
             } 
-            # ★ここで「10秒待ってダメなら諦める（timeout=10）」を追加！
             response = requests.get(url, headers=headers, timeout=10)
             response.raise_for_status()
             
@@ -94,4 +91,7 @@ def check_new_tomica():
         print("チェック完了。新着情報はありませんでした。")
 
 if __name__ == "__main__":
+    # ★★★ テスト用のメッセージを強制的に送る設定 ★★★
+    send_line_message("🚗 【テスト】LINEとの連携が大成功しました！このメッセージが届いていれば設定は完璧です！")
+    
     check_new_tomica()
