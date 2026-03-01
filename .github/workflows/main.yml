@@ -2,9 +2,8 @@ name: Tomica Info Catcher
 
 on:
   schedule:
-    # 毎日 日本時間の朝8時(UTC 23時)と夕方18時(UTC 9時)に実行する設定
     - cron: '0 23,9 * * *'
-  workflow_dispatch: # 手動でテスト実行するための設定
+  workflow_dispatch:
 
 jobs:
   run-bot:
@@ -27,7 +26,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: トミカ情報収集プログラムを実行
-        # さっき金庫に入れた2つの鍵を引き出すよう指示しています
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
@@ -37,6 +35,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          touch tomica_history.json
           git add tomica_history.json
           git commit -m "通知履歴を更新" || echo "No changes to commit"
           git push
