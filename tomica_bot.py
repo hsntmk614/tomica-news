@@ -57,7 +57,7 @@ def check_new_tomica():
     # --- ① タカラトミー公式 ＆ トミカごーごー のチェック ---
     HTML_TARGETS = [
         "https://takaratomymall.jp/shop/c/cTomica/",
-        "https://tomicagogo.com/"  # ←ご指定の最強サイトを追加しました！
+        "https://tomicagogo.com/"  
     ]
 
     for url in HTML_TARGETS:
@@ -70,7 +70,6 @@ def check_new_tomica():
                 title = link.text.strip()
                 href = link.get('href')
                 
-                # 「トミカ」という文字が含まれるリンクを拾う
                 if title and href and "トミカ" in title:
                     if href.startswith('/'):
                         domain = "/".join(url.split("/")[:3])
@@ -90,13 +89,12 @@ def check_new_tomica():
             print(f"サイトチェックエラー ({url}): {e}")
 
     # --- ② Googleニュース のチェック ---
-    # 「トミカ 特注」「オリジナルトミカ」「トミカ 予約」で検索した最新ニュースを拾います
-    GOOGLE_NEWS_URL = "https://news.google.com/rss/search?q=トミカ+特注+OR+オリジナルトミカ+OR+トミカ+予約&hl=ja&gl=JP&ceid=JP:ja"
+    # ★「when:2d」を追加して、過去2日以内（48時間以内）のニュースに限定しています
+    GOOGLE_NEWS_URL = "https://news.google.com/rss/search?q=トミカ+特注+OR+オリジナルトミカ+OR+トミカ+予約+when:2d&hl=ja&gl=JP&ceid=JP:ja"
     try:
         response = requests.get(GOOGLE_NEWS_URL, headers=headers, timeout=10)
         response.raise_for_status()
         
-        # ニュース用の特別なデータ(XML)を解読する処理
         root = ET.fromstring(response.text)
         for item in root.findall('.//item'):
             title = item.find('title').text
@@ -113,7 +111,7 @@ def check_new_tomica():
 
     # --- 保存処理 ---
     if new_items_found:
-        save_history(history[-400:]) # 履歴が増えすぎないよう最新400件だけ覚える
+        save_history(history[-400:]) 
         print("チェック完了。新着情報を通知しました。")
     else:
         print("チェック完了。新着情報はありませんでした。")
