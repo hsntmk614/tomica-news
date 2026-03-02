@@ -2,7 +2,8 @@ name: Tomica Info Catcher
 
 on:
   schedule:
-    - cron: '0 23,9 * * *'
+    # ★ここを変更しました！「1時間に1回（毎時0分）」に動かす暗号です
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
