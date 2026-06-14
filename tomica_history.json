@@ -1,8 +1,4 @@
 [
-    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBsRGtWNEtGdndBb2hQbjVSdnlHLVdaN3JKWjV6R0VMRHhNTGNZSkZlMUdhRXg2Ulg4Q3RWWk40UzhaNS1KeF9FanRpdGdOako2R2Zqd2Z3Z0VOeFcwVjFwRDA5b0NuOURy?oc=5",
-    "https://news.google.com/rss/articles/CBMicEFVX3lxTFBwQmpkUlJnVGxua29FRkxiODNYZF9VZlRqT2RfQ1BzNTJUVEtkN2pKN3Q0aXhyR2gyYzBzYThuOGlJamsyNjJnaDJ4UzRjandCVEdEdm9GVWFuM01yS3BmUXBnbWhselU1bFlBNGVqQ0U?oc=5",
-    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPaDJBamVwV3VKSkVDdFZHZ1VvbzgxejAydVA3MTBNaWY1NUF0am5mTTlRaExlWHJpakFWNFJxc29VRmRhbW43cVUyS0RRSmt5Wi1WZlQ0c3lLU2YzRTZEcEgxNTNZa09UVEs5OUxhUlZ3QWUtRE8wYlZMaWtfR3J1QnkwYlZybDlj?oc=5",
-    "https://news.google.com/rss/articles/CBMiY0FVX3lxTE83RGZKLTZfcEtkR0JTWUlGM2lQYmxxaGJHRTBnbTJBaG83eFRBdXFTUmZQOFNCWVBibFE1VXBCRXdIcG5WMFpLXzVOY25sVEFQUG93Q0ZrNG45N3h3NEhwU1gxdw?oc=5",
     "https://news.google.com/rss/articles/CBMiakFVX3lxTFBLZTBXNzZDYmNMUXJxVVFESXh6SDVqRkN2YjNMZi1CeGR4WGg5clJHcDlickYyNDVKQVktNHJNQzZyMkMxSTRkT0JFVGxNc2dpcDUwcVZNbTBnbG1XeUN1LXJ3TnhJRzh5S2c?oc=5",
     "https://tomicagogo.com/blog-entry-20141.html",
     "https://tomicagogo.com/blog-entry-20140.html",
@@ -398,5 +394,9 @@
     "https://tomicagogo.com/blog-entry-20134.html",
     "https://tomicagogo.com/blog-entry-20133.html",
     "https://tomicagogo.com/blog-entry-20132.html",
-    "https://tomicagogo.com/blog-entry-20124.html"
+    "https://tomicagogo.com/blog-entry-20124.html",
+    "https://tomicagogo.com/blog-entry-20448.html",
+    "https://news.google.com/rss/articles/CBMiUEFVX3lxTE9HdlVnMnlnaTRldEplUEtnSllDcDV4NWtRNnNacmxjQzNMUGVENVRBeEN3Mllmb2gyaWlxQWZGMjdQc2ZmN3JuV1ZwOVBaRWtM?oc=5",
+    "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBPZVZIdFpUMXBpaHZuMVdfdWp1YTl0TGs0SGN5T09WcVl0MHJzTkUtQ0ROT1pJV01nV25jSTl3NEN6RXI5b2VpR1hkRUNVaVY0enc?oc=5",
+    "https://news.google.com/rss/articles/CBMikAZBVV95cUxOVW5MbnJ3WFM3V2pIV3hsUm9mcTBwQU43Rm9yNWdqRVh3S2lwbzJqbWw5YTk3aW9vQkl5eW5VdGxQWTEwbDMwTTQ4aDYyWmZsVGNXenUzVUtNY2Z0eGdCV3BjdGdGUTM2aFBTV0VTQy05NjNscW9iSzdvajZpNlM3akJRcTlSdEdRaTNIQkFuaXZLWno0UHpZak9Ka01hWnlmeHJSNHNlbnpfT1EyTER1Y1M4Q2Q5eE9UTXBxdVVnNWc0UDVvM09GRFRfQUZXSzZ2cFdUenpDalhoZUE1MmY1RmwwRTNNR3pROXlrNGpabHBaVDVfMDlqUWNGcklrR1FTSy1qQVBHUlduY2Y4MURNZGU0eTNHMTF4MzRPQVNpQk5YZXdEZ3J4QjBhQ0FNVS1pcEtBOWFyRllKdm82VlFiV01BNDFNWUsyeHNGaUxsN3ZqWlBrY0xoNkRsQi15aGlwazdFS18yRlNzbGZ4YnMwSlZ3RGdnQVJTYUVzX3ItR3Z1bWJ0N0dxZnMxQnhvVWtoTG9GY1dNTWpPVzFPZjhOMnJmdkV3X2JDbEUyNlFZcGI3cjcySjBkdTVFMzdJNGgtQXNHeUx2M3hFNlhDa0lSRUhrcnFwYXU5ek5PV2JPZV9tWUZKYThUbTVDckJiaU9IdTVKXzlhTjdodjRTSkVzd3FkWm9MVzZSajk4ekdhVEpoOVlUa3RwUlQ3bHRFcDVUTVZQQU9NdGhYS2VUSG5YOVBidlk3NlBXV3ZVdVF6RnZpSnFYaWM3SXFSeUxDeDZlT0xvYmJOTWpYc1Q3TlFGSWNacGcyY09qX3Z2Sy1BcXZWeG9teG5VYmZLQ1hQRHpKV1lHODRKX2ZPVkg0aUdFMFB1Z0duYWNYbWI3dHU1OWZLRzVid1NsYTRzMWFYX0J3QV9KVm9KTm5sbGRELVEyd0ZQNnExd2Iyb0Uza3UxZ1dOcnJqVnlxZ3V5akxJZVY1TDU0S3lNMjhibzVhOW1Pd2FDNEtxQy1vRlBtSmNNV1E1RWRHMVNLSTU1QjFUanpa?oc=5"
 ]
