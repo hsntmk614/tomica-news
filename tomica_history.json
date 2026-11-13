@@ -1,10 +1,4 @@
 [
-    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBDRnk3Q0w0SE1vYlZVZzl1X2RQWF9HMkdQU1p2bFRkLW5Bak1CaFdYQkdHU0kyRzVRRXMtYkRtZWRLRTdWS2owVlB1dTFtRlpyZXVzVDFEU0JuLWszZ1hLcHF1UmZqaEk?oc=5",
-    "https://news.google.com/rss/articles/CBMic0FVX3lxTFAtbThCMXJRRlJBUjF0MXRsLW9JcEhxMlZnUUUtQ1JySHB3d0lqdmoyWmt3UzdKNUt6X2tBNGtDa0VCdXVVZjJsX2tEb3FEcHpobURCTEx4aTJjOFpQOFNLQ0YyZ0RWRVZEMnp3TXZNQmpJbWM?oc=5",
-    "https://news.google.com/rss/articles/CBMijgFBVV95cUxQZTFIQk12UHhuN3FoZFlBb25vS3dpcTFIYzB2YXdkOENiXzVfV2RxWm9icEpRUlBIQzVOZUpmRWpHaUlGbFVVYW54Z3hPbWszOVJnclZEam5DcG9TQ0xTU0k3bWM1T3hwNTNVckVaVlhOdDNhZ2MyOWVBbGlocjFaLWF5VDNJZGtpbnRvVGN3?oc=5",
-    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5SWWhBVEJ1NUR4UzluTC1DejltQmNYLUV2TVRfc0lmNUJmNDVBVUh5bHNfNkxWY2pkRmtKazFFd2lUVnduQzk2UU9iYl9FRDRSU1hZV0ZpbnREX1FQeWZLSHNWcjZZdnM?oc=5",
-    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBROVpMM2RmMDczaEZtZUYwMFpQM3VCZGJ4SkFoWG13NnNTV1VYS3RqOGtBREQxZWRuY2dYRURIMjBiRVhVYzZ2cUxjREVkR0RlOUhqY29UYXJkS1pmNGxNdTZ0V0tIZTg?oc=5",
-    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1vZm5UY09mSUs0YmNmRUFNMVVmV1RvbzUtRzRuaHpuQUo4clJ5RkZfSHNPRktFZGkwQ3VlY082Y1pGbE52VGtwcG1hZjZ6TEtvSlFSd29RMGYyOUZpY0UtcW4yVm1obVU?oc=5",
     "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5hTnppaHdQdHE4VGxISlhyNnNLM28yeDdjYWxmUkZvcWd5LXY2UEdqUThQa3JEVGxTNjRiVWtVd2VjOUVyRVRzOWQ5aE9VRk1PWDVsSnVFeUdpc0RKRDNv?oc=5",
     "https://tomicagogo.com/blog-entry-21381.html",
     "https://news.google.com/rss/articles/CBMiakFVX3lxTE5oTW9UUk80Z24yQklhREhnX05fc09vaXlTZHZvNkZCQzVXNTRPNmFIQlRjWUdKRlQ4aExvdTlwaW9hTnlROFpqSUhmS1lDMGdBSXlKWDY5Y25EcU9VV1hEMjBNeTJZSUhhWGc?oc=5",
@@ -398,5 +392,11 @@
     "https://tomicagogo.com/blog-entry-21654.html",
     "https://news.google.com/rss/articles/CBMiUEFVX3lxTE43NlY2MEhiVXZlVHZyVlRwVWJPZVBqekU4amZIQUhnY0R2ZlRGUDFIdDlDWmo3SFRQeE5LZ082YXE2UmF2QmZPMEtvYWw0Yk5R?oc=5",
     "https://tomicagogo.com/blog-entry-20701.html",
-    "https://news.google.com/rss/articles/CBMif0FVX3lxTE9lWEdDU0FqSmdhN0JuSVFEMkdFcGtFNGpkNTdxcFR0QTBlWDVBQmo1TXR4Wnk4ZW9QLVA2c3gxejRhNXpRVUxmX2lxeWhXYkdlWGFYQmlyWU1sZ1d1andiSU5jTGtGT0JMSVpuZGFkX3dTN0EyZmJBYVpJdGZwbFU?oc=5"
+    "https://news.google.com/rss/articles/CBMif0FVX3lxTE9lWEdDU0FqSmdhN0JuSVFEMkdFcGtFNGpkNTdxcFR0QTBlWDVBQmo1TXR4Wnk4ZW9QLVA2c3gxejRhNXpRVUxmX2lxeWhXYkdlWGFYQmlyWU1sZ1d1andiSU5jTGtGT0JMSVpuZGFkX3dTN0EyZmJBYVpJdGZwbFU?oc=5",
+    "https://tomicagogo.com/blog-entry-21668.html",
+    "https://tomicagogo.com/blog-entry-21667.html",
+    "https://tomicagogo.com/blog-entry-21664.html",
+    "https://tomicagogo.com/blog-entry-21665.html",
+    "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB0S0psTTFPMFRFejBnalBtUF9WSXdIWEhjdGRSeERZazVRNm93b0dzX1VYSkxvRTlJTEJ3WjhvZzhEUmVlVDRybDJVSTBfcEQ1?oc=5",
+    "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9jRE1xR1VQcXRGYnUySHE5cHNnUzh6SXlGNjY1V2p6dWpZZVNOalF0Mi1lT1Rob1ZmSjYwLTJUWXJlb2VKTWMzU1hNWGMxRlgxRDRxM0NR0gFbQVVfeXFMTzh0djJVSkpjZHpXcy14RG8xbk13Q2x2Q2tXQ3ZkNEJ5aDNlWUQyemI0QjVfZF8zX19wakJoNHNjc0Z4VHVpZWx5a24wQnRTdlBfOHk2YzN0MnZGbw?oc=5"
 ]
